@@ -7,6 +7,11 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed = 1f;
     [SerializeField] Animator animator;
 
+    [SerializeField] SpriteRenderer spriteRenderer;
+    public int playerHP = 3;
+
+    bool isInvincible;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -46,12 +51,12 @@ public class Player : MonoBehaviour
             isRunning = true;
         }
 
-        animator.SetBool("IsRunning", isRunning);
-
-        
+        animator.SetBool("IsRunning", isRunning);     
         
         
     }
 
    
+
+
 }
