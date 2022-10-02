@@ -4,14 +4,47 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public Animator animator;
+
     [SerializeField] float speed = 1f;
     public bool isTrackingPlayer = true;
     GameObject player;
+
+    public int maxHp = 100;
+    public int currentHp;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        currentHp = maxHp;
     }
 
+    public void TakeDamage(int damge)
+    {
+        currentHp -= damge;
+
+        animator.SetTrigger("TakeHit");
+            
+        if(currentHp <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Die");
+
+        animator.SetBool("IsDead", true);
+
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
+
+        
+
+        
+    }
+
+        
     
     void Update()
     {

@@ -5,9 +5,14 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     public Animator animator;
+
     public Transform attackPoint;
-    public float attackRange = 0.5f;
     public LayerMask enemyLayers;
+
+    public float attackRange = 0.5f;
+    public int attackDamage = 40;
+
+
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space))
@@ -29,7 +34,7 @@ public class PlayerCombat : MonoBehaviour
 
         foreach(Collider2D enmey in hitEnemies)
         {
-            Debug.Log("We hit");
+            enmey.GetComponent<Enemy>().TakeDamage(attackDamage);
         }
     }
     void Attack2()
