@@ -12,18 +12,28 @@ public class PlayerCombat : MonoBehaviour
     public float attackRange = 0.5f;
     public int attackDamage = 40;
 
+    public float attackRate = 2f;
+    float nextAttackTime = 0f;
+
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Time.time >= nextAttackTime)
         {
-            Attack1();
+            if (Input.GetButtonDown("Fire1"))
+            {
+                Attack1();
+                nextAttackTime = Time.time + 1f / attackRate;
+            }
         }
+       
 
         if(Input.GetKeyDown(KeyCode.E))
         {
             Attack2();
         }
+
+        
     }
 
     void Attack1()
@@ -48,6 +58,7 @@ public class PlayerCombat : MonoBehaviour
             Debug.Log("We hit");
         }
     }
+
 
 
     private void OnDrawGizmosSelected()

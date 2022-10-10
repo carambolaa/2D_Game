@@ -9,12 +9,19 @@ public class Player : MonoBehaviour
 
     [SerializeField] SpriteRenderer spriteRenderer;
     public int playerHP = 3;
+    public int maxHP = 3;
+
+    public HealthBar healthBar;
 
     bool isInvincible;
+
+    
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        playerHP = maxHP;
+        healthBar.SetMaxHealth(maxHP);
         
     }
     private void Update()
@@ -56,7 +63,31 @@ public class Player : MonoBehaviour
         
     }
 
-   
+    public bool OnDamage()
+    {
+        if(!isInvincible)
+        {
+            StartCoroutine(InvincibilityCoroutine());
+            healthBar.SetHealth(playerHP);
+            if(--playerHP <=0)
+            {
+                Destroy(gameObject);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        spriteRenderer.color = Color.white;
+        isInvincible = false;
+    }
+
+
 
 
 }
